@@ -1,0 +1,9 @@
+@font-face {
+	font-family: homegrowm;
+	src: url("../fonts/homegrown.otf");
+}
+
+.logo {
+	font-family: "homegrown";
+	cursor: default;
+}
