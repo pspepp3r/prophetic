@@ -3,6 +3,7 @@ declare(strict_types=1);
 use Src\Enums\AppEnvironment;
 
 $appEnv = $_ENV['APP_ENV'] ?? AppEnvironment::Production->value;
+$formatAppName = strtolower(str_replace(' ', '_', $_ENV['APP_ENV'])); 
 
 return [
   'db' => [
@@ -24,4 +25,10 @@ return [
     'display_error_details' => true,
     'log_error_details' => true
   ],
+  'session' => [
+    'name' => "{$formatAppName}_session",
+    'httponly' => (bool) 1,
+    'secure' => (bool) 1,
+    'samesite' => 'lax'
+  ]
 ];
