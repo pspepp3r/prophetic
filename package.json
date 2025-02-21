@@ -1,5 +1,5 @@
 {
-	"name": "project",
+	"name": "prophetic",
 	"version": "1.0.0",
 	"description": "A framework for starting up projects",
 	"main": "public/index.php",
@@ -7,7 +7,7 @@
 		"test": "tests"
 	},
 	"scripts": {
-		"test": "project-test",
+		"test": "prophetic-test",
 		"dev": "encore dev",
 		"watch": "encore dev --watch",
 		"build": "encore production --progress"

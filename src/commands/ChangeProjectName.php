@@ -24,7 +24,13 @@ class ChangeProjectName extends Command
 
   public function execute(InputInterface $input, OutputInterface $output): int
   {
-    $output->write("Project name changed to $input!", true);
+    $projectName = $input->getArgument('new-project-name');
+    
+    if ($projectName === null) {
+      throw new \RuntimeException("Argument 'new-project-name' is required in order to execute this command correctly.");
+    }
+
+    $output->write("Project name changed to $projectName!", true);
     return Command::SUCCESS;
   }
 }

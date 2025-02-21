@@ -16,8 +16,8 @@ class TestCommand extends Command
 
   protected function configure(): void
   {
-    $this->setName('app:project-test-command')
-      ->setDescription('Test command for Project');
+    $this->setName('app:prophetic-test-command')
+      ->setDescription('Test command for Prophet');
   }
 
   public function execute(InputInterface $input, OutputInterface $output): int

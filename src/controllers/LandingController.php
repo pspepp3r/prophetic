@@ -16,7 +16,7 @@ class LandingController
   public function index(Request $request, Response $response, array $args): Response
   {
     $args = [
-      'title' => 'Project | Home',
+      'title' => 'Prophetic | Home',
   ];
     return $this->twig->render($response, 'landing/landing.twig', $args);
   }

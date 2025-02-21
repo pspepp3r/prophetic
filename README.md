@@ -1,8 +1,8 @@
-# PHP Project Setup Package
+# PHP Prophetic Framework
 
-Congratulations on cloning this package framework. This guide aims to help you familiarize with the framework and guide you through basic operations. Any further difficulties should be emailed to [me](prosperpepple12@gmail.com)
+Congratulations on cloning Prophetic framework. This guide aims to help you familiarize with the framework and guide you through basic operations. Any further difficulties should be emailed to [me](prosperpepple12@gmail.com)
 
-This package framework is designed to quickly setup your project by installing some recommended and packages and directory structure.
+Prophetic framework is designed to quickly setup your project by installing some recommended and packages and directory structure.
 
 ## Directory Structure
 
@@ -42,7 +42,7 @@ Below is a summary of directories and their contents:
 
 - phpunit.xml: Configuration file for PHPUnit.
 
-- project: Initiation file for customized console commands.
+- prophetic: Initiation file for customized console commands.
 
 - robots.txt: Contains basic web search engine rules.
 
@@ -70,5 +70,5 @@ npm run dev
 - To change the name of the project run the following terminal command:
 
 ```cmd
-php project app:change-project-name <new-project-name>
+php prophetic app:change-project-name <new-project-name>
 ```
