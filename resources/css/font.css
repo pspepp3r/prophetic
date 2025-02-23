@@ -1,9 +1,33 @@
 @font-face {
-	font-family: homegrowm;
-	src: url("../fonts/homegrown.otf");
+	font-family: Quantico-Regular;
+	src: url("../fonts/Quantico-Regular.ttf");
 }
 
 .logo {
-	font-family: "homegrown";
+	animation: glow 2s linear 1s infinite normal both running;
+	background: linear-gradient(to right, #5affff, purple);
+	background-clip: text;
 	cursor: default;
+	font-family: "Quantico-Regular";
+	font-size: 5rem;
+	text-shadow: -5px -5px 50px #5affff;
+	text-shadow: 5px 5px 50px purple;
+	-webkit-text-fill-color: transparent;
+}
+
+@keyframes glow {
+	0% {
+		text-shadow: -5px -5px 50px #5affff;
+		text-shadow: 5px 5px 50px purple;
+	}
+
+	50% {
+		text-shadow: -5px -5px 25px #5affff;
+		text-shadow: 5px 5px 25px purple;
+	}
+
+	100% {
+		text-shadow: -5px -5px 50px #5affff;
+		text-shadow: 5px 5px 50px purple;
+	}
 }
