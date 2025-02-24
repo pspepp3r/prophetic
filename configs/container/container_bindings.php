@@ -39,7 +39,7 @@ return [
   EntityManager::class => function ($connection, $ORMConfig, ConfigService $configService): EntityManager {
     $connection = DriverManager::getConnection($configService->get('db'));
 
-    $ORMConfig = ORMSetup::createAttributeMetadataConfiguration([ENTITY_PATH], (bool) $configService->get('db.app_env'));
+    $ORMConfig = ORMSetup::createAttributeMetadataConfiguration([ENTITY_PATH], $configService->get('db.dev_mode'));
     $entityManager = new EntityManager($connection, $ORMConfig);
     return $entityManager;
   },
@@ -47,7 +47,7 @@ return [
   ResponseFactoryInterface::class => fn(App $app) => $app->getResponseFactory(),
   
   Twig::class => function ($container, ConfigService $configService): Twig {
-    $twig = Twig::create(VIEW_PATH, ['cache' => CACHE_PATH, 'auto_reload' => (bool) $configService->get('db.app_env')]);
+    $twig = Twig::create(VIEW_PATH, ['cache' => CACHE_PATH, 'auto_reload' => $configService->get('db.dev_mode')]);
 
     $twig->addExtension(new EntryFilesTwigExtension($container));
     $twig->addExtension(new AssetExtension($container->get('webpack_encore.packages')));

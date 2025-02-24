@@ -11,17 +11,17 @@ $boolean = function (mixed $value) {
 };
 
 $appEnv = $_ENV['APP_ENV'] ?? AppEnvironment::Production->value;
-$formatAppName = strtolower(str_replace(' ', '_', $_ENV['APP_NAME'])); 
+$formatAppName = strtolower(str_replace(' ', '_', $_ENV['APP_NAME']));
 
 return [
   'app' => [
-    'app_name' => AppEnvironment::isDevelopment($appEnv),
+    'app_name' => $_ENV['APP_NAME'],
     'app_version' => $_ENV['APP_VERSION'] ?? '1.0',
     'app_environment' => $appEnv,
-    'app_debug' => (bool) ($_ENV['APP_DEBUG'] ?? 0)
+    'app_debug' => $boolean($_ENV['APP_DEBUG'] ?? 0)
   ],
   'db' => [
-    'app_env' => $_ENV['APP_ENV'],
+    'dev_mode' => AppEnvironment::isDevelopment($appEnv),
     'dbname' => $_ENV['DB_DATABASE'],
     'user' => $_ENV['DB_USERNAME'],
     'password' => $_ENV['DB_PASSWORD'],
@@ -30,7 +30,7 @@ return [
   ],
   'error_handling' => [
     'log_errors' => true,
-    'display_error_details' => true,
+    'display_error_details' => $boolean($_ENV['APP_DEBUG'] ?? 0),
     'log_error_details' => true
   ],
   'session' => [
