@@ -16,7 +16,7 @@ class TestCommand extends Command
 
   protected function configure(): void
   {
-    $this->setName('app:prophetic-test-command')
+    $this->setName('app:test')
       ->setDescription('Test command for Prophet');
   }
 
