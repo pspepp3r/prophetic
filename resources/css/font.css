@@ -3,16 +3,29 @@
 	src: url("../fonts/Quantico-Regular.ttf");
 }
 
-.logo {
-	animation: glow 2s linear 1s infinite normal both running;
+.logo{
+	animation: glow 4s ease-in-out 1s infinite normal both running;
 	background: linear-gradient(to right, #5affff, purple);
 	background-clip: text;
 	cursor: default;
 	font-family: "Quantico-Regular";
 	font-size: 5rem;
-	text-shadow: -5px -5px 50px #5affff;
-	text-shadow: 5px 5px 50px purple;
 	-webkit-text-fill-color: transparent;
+}
+
+.ico {
+	background: linear-gradient(to right, #5affff, purple);
+	background-clip: text;
+	font-family: "Quantico-Regular";
+	font-size: 2rem;
+	margin: 0 1em;
+	transition: .7s;
+	-webkit-text-fill-color: transparent;
+}
+
+.ico:hover {
+		text-shadow: -5px -5px 25px #5affff;
+		text-shadow: 5px 5px 25px purple;
 }
 
 @keyframes glow {
