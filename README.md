@@ -1,6 +1,6 @@
 # Prophetic: The PHP Preacher
 
-Congratulations on cloning Prophetic framework. This documentation aims to help you understand the framework structure and help you customize it to your project. Any further difficulties should be emailed to [me](https://).
+Congratulations on cloning Prophetic framework. This documentation aims to help you understand the framework structure and help you customize it to your project. Any further difficulties should be emailed to [me](mailto:prosperpepple12@gmail.com).
 
 Prophetic framework is designed to quickly setup your project by installing some recommended and packages and directory structure.
 
@@ -75,7 +75,7 @@ php prophetic app:change-project-name <new-project-name>
 
 ## Creating Entities
 
-By default, Prophetic uses Doctrine ORM for mapping. After installing dependencies and modifying the name of the project to your taste, you'll want to start creating entities. this can be done within the `src/entities` directory. All entities must follow the rules according to the Symfony's Doctrine ORM Guides ([See documentation](https://doctrine-project.org/projects/doctrine-orm/en/3.3/tutorials/getting-started.html#starting-with-the-product-entity)).
+By default, Prophetic uses Doctrine ORM for mapping. After installing dependencies and modifying the name of the project to your taste, you'll want to start creating entities. this can be done within the `src/entities` directory. All entities must follow the rules according to the Symfony's Doctrine ORM Guides ([See documentation](https://doctrine-project.org/projects/doctrine-orm/en/3.3/index.html)).
 After Entities have been created, it can then be migrated by the terminal command:
 
 ```cmd
@@ -85,13 +85,13 @@ php prophetic migrations:migrate
 
 ## Creating Commands
 
-To add your custom commands, you can create command class file within the `src/commands` directory. This class must extend the `Symfony\Component\Console\Command\Command` class. After creating the command according to the [Symfony\Console guidelines](https://).
+To add your custom commands, you can create command class file within the `src/commands` directory. This class must extend the `Symfony\Component\Console\Command\Command` class. After creating the command according to the [Symfony\Console guidelines](https://symfony.com/doc/current/console.html#creating-a-command).
 After creating the command, it can be registered within the `custom_commands.php` file in the `configs/console` directory, by adding the fully qualified classname of your custom command within the array to be passed to the `prophetic` command script within the root directory.
 Please while creating commands, it is best to name it with a prefix `app:<commandName>` to easily differentiate between custom commands and built-in commands.
 
 ## Adding Container Bindings
 
-Prophetic uses DI container to automatically resolve classes. To add custom bindings to the project, it can be done within the `configs/container/container_bindings.php` file. [See the documentation](https://) on how to add a class definition.
+Prophetic uses DI container to automatically resolve classes. To add custom bindings to the project, it can be done within the `configs/container/container_bindings.php` file. [See the documentation](https://php-di.org/docs) on how to add a class definition.
 
 ## Migration Configuration
 
@@ -126,7 +126,7 @@ $config->get('configName.config_option_1');
 
 ## Adding SlimPHP Middlewares
 
-Middlewares are like a piece of code that runs together with the application on each requests ([See the documentation](https://)). They can be created within the `src/middlewares` directory and registered in Prophetic within the `configs/middleware.php`.
+Middlewares are like a piece of code that runs together with the application on each requests ([See the documentation](https://slimframework.com/docs/v4/concepts/middleware.html)). They can be created within the `src/middlewares` directory and registered in Prophetic within the `configs/middleware.php`.
 
 ## Path Constants
 
@@ -142,5 +142,5 @@ All frontend code is found within the `resources` directory in their respective 
 
 ## Writing Tests
 
-Prophetic Tests can be written within the `tests` directory. By default, Prophetic uses PHPUnit as its default testing framework ([See documentation](https://)). The configuration file is within the `phpunit.xml` file in the root directory (alter to your taste).
+Prophetic Tests can be written within the `tests` directory. By default, Prophetic uses PHPUnit as its default testing framework ([See documentation](https://docs.phpunit.de/en/11.5/)). The configuration file is within the `phpunit.xml` file in the root directory (alter to your taste).
 All unit tests are written within the `tests/unit` directory and integration tests within the `tests/integration` directory, modify as needed.
