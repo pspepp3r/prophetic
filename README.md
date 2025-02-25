@@ -142,5 +142,5 @@ All frontend code is found within the `resources` directory in their respective 
 
 ## Writing Tests
 
-Prophetic Tests can be written within the `tests` directory. By default, Prophetic uses PHPUnit as its default testing framework ([See documentation](https://docs.phpunit.de/en/11.5/)). The configuration file is within the `phpunit.xml` file in the root directory (alter to your taste).
+Prophetic Tests can be written within the `tests` directory. By default, Prophetic uses PHPUnit as its testing framework ([See documentation](https://docs.phpunit.de/en/11.5/)). The configuration file is within the `phpunit.xml` file in the root directory (alter to your taste).
 All unit tests are written within the `tests/unit` directory and integration tests within the `tests/integration` directory, modify as needed.
