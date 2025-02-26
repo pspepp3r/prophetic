@@ -1,9 +1,9 @@
 @font-face {
 	font-family: Quantico-Regular;
-	src: url("../fonts/Quantico-Regular.ttf");
+	src: url("../../fonts/Quantico-Regular.ttf");
 }
 
-.logo{
+.logo {
 	animation: glow 4s ease-in-out 1s infinite normal both running;
 	background: linear-gradient(to right, #5affff, purple);
 	background-clip: text;
@@ -19,13 +19,13 @@
 	font-family: "Quantico-Regular";
 	font-size: 2rem;
 	margin: 0 1em;
-	transition: .7s;
+	transition: 0.7s;
 	-webkit-text-fill-color: transparent;
-}
 
-.ico:hover {
+	&:hover {
 		text-shadow: -5px -5px 25px #5affff;
 		text-shadow: 5px 5px 25px purple;
+	}
 }
 
 @keyframes glow {
