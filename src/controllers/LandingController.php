@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Src\Controllers;
 
-use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Views\Twig;
 
 
 class LandingController
@@ -13,7 +13,7 @@ class LandingController
   public function __construct(private Twig $twig)
   {
   }
-  public function index(Request $request, Response $response, array $args): Response
+  public function index(Response $response, array $args): Response
   {
     $args = [
       'title' => 'Prophetic | Home',

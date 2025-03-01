@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 use Slim\App;
 use Slim\Views\Twig;
-use Src\Services\ConfigService;
 use Slim\Views\TwigMiddleware;
+use Src\Services\ConfigService;
 
 return function (App $app) {
   $container = $app->getContainer();

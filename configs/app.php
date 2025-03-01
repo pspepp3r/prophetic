@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 use Src\Enums\AppEnvironment;
 
 $boolean = function (mixed $value) {
@@ -40,4 +41,8 @@ return [
     'httponly' => $boolean($_ENV['SESSION_HTTP_ONLY'] ?? true),
     'samesite' => $_ENV['SESSION_SAME_SITE'] ?? 'lax',
   ],
+  'mailer' => [
+    'dsn' => $_ENV['MAILER_DSN'],
+    'from' => $_ENV['MAILER_FROM'],
+  ]
 ];
