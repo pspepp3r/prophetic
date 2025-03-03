@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
+use Src\Classes\RouteEntityBindingStrategy;
 use Src\Services\ConfigService;
 use Symfony\Bridge\Twig\Extension\AssetExtension;
 use Symfony\Component\Asset\Package;
@@ -27,6 +28,13 @@ return [
     $addMiddleware = require CONFIG_PATH . '/middleware.php';
     
     $app = AppFactory::create();
+
+    $app->getRouteCollector()->setDefaultInvocationStrategy(
+            new RouteEntityBindingStrategy(
+                $container->get(EntityManager::class),
+                $app->getResponseFactory()
+            )
+        );
     
     $router($app);
     $addMiddleware($app);
