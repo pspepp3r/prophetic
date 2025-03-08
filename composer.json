@@ -24,6 +24,7 @@
 		"slim/twig-view": "^3.4",
 		"symfony/cache": "^7.2",
 		"symfony/console": "^7.2",
+		"symfony/mailer": "^7.2",
 		"symfony/twig-bridge": "^7.2",
 		"symfony/webpack-encore-bundle": "^2.2",
 		"twig/twig": "^3.17",
