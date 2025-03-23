@@ -23,7 +23,7 @@ return [
   ],
   'db' => [
     'dev_mode' => AppEnvironment::isDevelopment($appEnv),
-    'cache_dir' => STORAGE_PATH . '/ORMCache',
+    'cache_dir' => STORAGE_PATH . '/cache/orm',
     'entity_dir' => ENTITY_PATH,
     'driver' => $_ENV['DB_DRIVER'] ?? 'pdo_mysql',
     'host' => $_ENV['DB_HOST'] ?? 'localhost',
