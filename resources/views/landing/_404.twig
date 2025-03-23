@@ -1,12 +1,12 @@
-{{ include('landing/layout/header.twig') }}
+{% extends "landing/layout/layout.twig" %}
 
-<body>
+{% block content %}
+
 	<div class="d-flex justify-content-center logo-space mt-5">
 		<p class="m-5 logo">Prophetic</p>
 	</div>
 	<div class="d-flex justify-content-center mx-5 h1">
 		404 | Not Found
 	</div>
-</body>
 
-{{ include('landing/layout/footer.twig') }}
+{% endblock %}

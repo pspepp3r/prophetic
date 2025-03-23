@@ -16,8 +16,8 @@ return function (App $app) {
     $app->add(HttpNotFoundMiddleware::class);
 
     $app->addErrorMiddleware(
-        (bool) $config->get('display_error_details'),
-        (bool) $config->get('log_errors'),
-        (bool) $config->get('log_error_details'),
+        (bool) $config->get('error_handling.display_error_details'),
+        (bool) $config->get('error_handling.log_errors'),
+        (bool) $config->get('error_handling.log_error_details'),
     );
 };
