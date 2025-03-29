@@ -16,7 +16,10 @@ return [
     'execution_time_column_name' => 'executed_time',
   ],
 
-  'migrations_paths' => [
-    'Migrations' => '../../migrations'
-  ],
+    'migrations_paths' => [
+
+        'Migrations' => ROOT_DIR . '/storage/cache/orm/migrations'
+
+    ],
+
 ];
