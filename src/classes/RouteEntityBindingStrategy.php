@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Classes;
 
@@ -18,8 +18,7 @@ class RouteEntityBindingStrategy implements InvocationStrategyInterface
     public function __construct(
         private readonly EntityManager $entityManager,
         private readonly ResponseFactoryInterface $responseFactory
-    ) {
-    }
+    ) {}
 
     public function __invoke(
         callable $callable,
@@ -54,7 +53,7 @@ class RouteEntityBindingStrategy implements InvocationStrategyInterface
 
                     if (! $entityId || $parameter->allowsNull()) {
                         throw new \InvalidArgumentException(
-                            'Unable to resolve argument "' . $paramName . '" in the callable'
+                            "Unable to resolve argument \"$paramName\" in the callable"
                         );
                     }
 

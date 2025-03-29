@@ -1,13 +1,12 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Src\Services;
 
 class ConfigService
 {
-    public function __construct(private readonly array $config)
-    {
-    }
+    public function __construct(private readonly array $config) {}
 
     public function get(string $name, mixed $default = null): mixed
     {

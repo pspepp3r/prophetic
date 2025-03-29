@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
@@ -29,8 +30,6 @@ $application = new Application($appConfig->get('app.app_name'), $appConfig->get(
 
 ConsoleRunner::addCommands($application, $dependencyFactory);
 
-$application->addCommands($builtCommands($entityManagerProvider, $connectionProvider), );
+$application->addCommands($builtCommands($entityManagerProvider, $connectionProvider),);
 $application->addCommands(array_map(fn($command) => $container->get($command), $customCommands));
 $application->run();
-
-// TODO: Add commands to change project name, version, developer mode, etc.

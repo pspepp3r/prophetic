@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use DI\Container;
@@ -21,55 +22,61 @@ use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
 
 return [
-  App::class => function (Container $container) {
-    AppFactory::setContainer($container);
 
-    $router = require CONFIG_PATH . '/routes/web.php';
-    $addMiddleware = require CONFIG_PATH . '/middleware.php';
+    App::class => function (Container $container) {
 
-    $app = AppFactory::create();
+        AppFactory::setContainer($container);
 
-    $app->getRouteCollector()->setDefaultInvocationStrategy(
+        $router = require CONFIG_PATH . '/routes/web.php';
+        $addMiddleware = require CONFIG_PATH . '/middleware.php';
+
+        $app = AppFactory::create();
+
+        $app->getRouteCollector()->setDefaultInvocationStrategy(
             new RouteEntityBindingStrategy(
                 $container->get(EntityManager::class),
                 $app->getResponseFactory()
             )
         );
 
-    $router($app);
-    $addMiddleware($app);
+        $router($app);
+        $addMiddleware($app);
 
-    return $app;
-  },
+        return $app;
+    },
 
-  ConfigService::class => new ConfigService(require CONFIG_PATH . '/app.php'),
+    ConfigService::class => new ConfigService(require CONFIG_PATH . '/app.php'),
 
-  EntityManager::class => function ($connection, $ORMConfig, ConfigService $configService): EntityManager {
-    $connection = DriverManager::getConnection($configService->get('db'));
+    EntityManager::class => function ($connection, $ORMConfig, ConfigService $configService): EntityManager {
 
-    $ORMConfig = ORMSetup::createAttributeMetadataConfiguration([$configService->get('db.entity_dir')], $configService->get('db.dev_mode'));
-    $entityManager = new EntityManager($connection, $ORMConfig);
-    return $entityManager;
-  },
+        $connection = DriverManager::getConnection($configService->get('db'));
 
-  ResponseFactoryInterface::class => fn(App $app) => $app->getResponseFactory(),
+        $ORMConfig = ORMSetup::createAttributeMetadataConfiguration([$configService->get('db.entity_dir')], $configService->get('db.dev_mode'));
+        $entityManager = new EntityManager($connection, $ORMConfig);
+        return $entityManager;
+    },
 
-  Twig::class => function ($container, ConfigService $configService): Twig {
-    $twig = Twig::create(VIEW_PATH, ['cache' => STORAGE_PATH . '/cache/twig', 'auto_reload' => $configService->get('db.dev_mode')]);
+    ResponseFactoryInterface::class => fn(App $app) => $app->getResponseFactory(),
 
-    $twig->addExtension(new EntryFilesTwigExtension($container));
-    $twig->addExtension(new AssetExtension($container->get('webpack_encore.packages')));
+    Twig::class => function ($container, ConfigService $configService): Twig {
 
-    return $twig;
-  },
+        $twig = Twig::create(VIEW_PATH, ['cache' => STORAGE_PATH . '/cache/twig', 'auto_reload' => $configService->get('db.dev_mode')]);
 
-  'webpack_encore.entrypoint' => fn() => new EntrypointLookup(BUILD_PATH . '/entrypoints.json'),
+        $twig->addExtension(new EntryFilesTwigExtension($container));
+        $twig->addExtension(new AssetExtension($container->get('webpack_encore.packages')));
 
-  'webpack_encore.packages' => fn() => new Packages(
-    new Package(new JsonManifestVersionStrategy(BUILD_PATH . '/manifest.json'))
-  ),
+        return $twig;
+    },
 
-  'webpack_encore.tag_renderer' => fn(Container $container) => new TagRenderer(
-    new EntrypointLookupCollection($container, 'webpack_encore.entrypoint'), $container->get('webpack_encore.packages')
-  ),
+    'webpack_encore.entrypoint' => fn() => new EntrypointLookup(BUILD_PATH . '/entrypoints.json'),
+
+    'webpack_encore.packages' => fn() => new Packages(
+        new Package(new JsonManifestVersionStrategy(BUILD_PATH . '/manifest.json'))
+    ),
+
+    'webpack_encore.tag_renderer' => fn(Container $container) => new TagRenderer(
+        new EntrypointLookupCollection($container, 'webpack_encore.entrypoint'),
+        $container->get('webpack_encore.packages')
+    ),
+
 ];

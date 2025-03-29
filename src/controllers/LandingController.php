@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Src\Controllers;
@@ -9,9 +10,7 @@ use Slim\Views\Twig;
 
 class LandingController
 {
-    public function __construct(private Twig $twig)
-    {
-    }
+    public function __construct(private Twig $twig) {}
     public function index(Response $response, array $args): Response
     {
         $args = [

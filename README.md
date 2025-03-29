@@ -30,23 +30,11 @@ Below is a summary of directories and their contents:
 
 - .env.example: Environment variables for the project.
 
-- .gitignore: Gitignore dependency files like 'vendor' and 'node_modules' directory and sensitive files like '.env'.
-
 - .htaccess: (For Apache web servers), redirects all requests to the 'public/index.php' script.
 
 - bootstrap.php: Loads the '.env' files and instantiates the container.
 
-- composer.json: Holds a list of dependency packages to be installed by composer.
-
-- package.json: Holds a list of dependency packages to be installed by npm.
-
-- phpunit.xml: Configuration file for PHPUnit.
-
 - prophetic: Initiation file for customized console commands.
-
-- robots.txt: Contains basic web search engine rules.
-
-- webpack.config.js: Configures the Symfony Webpack encore dependency.
 
 ## Project Setup
 
