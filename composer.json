@@ -1,28 +1,21 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "pspepp3r/prophetic",
     "description": "A framework for starting up projects",
-    "keywords": [
-        "prophetic",
-        "framework"
-    ],
     "type": "project",
+    "keywords": ["prophetic", "framework"],
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Src\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
     "authors": [
         {
             "name": "pspepp3r",
             "email": "prosperpepple12@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        }
+    },
     "require": {
         "php": ">=8.2",
         "doctrine/dbal": "^4.2",
