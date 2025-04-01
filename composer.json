@@ -15,6 +15,7 @@
 		}
 	],
 	"require": {
+		"php": ">=8.2",
 		"doctrine/dbal": "^4.2",
 		"doctrine/migrations": "^3.8",
 		"doctrine/orm": "^3.3",
