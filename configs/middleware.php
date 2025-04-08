@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Slim\App;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
-use Src\Middlewares\HttpNotFoundMiddleware;
+use Src\Middlewares\HttpSpecializedErrorMiddleware;
 use Src\Services\ConfigService;
 
 return function (App $app) {
@@ -15,7 +15,7 @@ return function (App $app) {
 
     $app->addMiddleware(TwigMiddleware::create($app, $container
         ->get(Twig::class)));
-    $app->add(HttpNotFoundMiddleware::class);
+    $app->add(HttpSpecializedErrorMiddleware::class);
 
     $app->addErrorMiddleware(
         (bool) $config->get('error_handling.display_error_details'),

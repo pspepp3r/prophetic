@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Src\Middlewares;
 
-use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Slim\Exception\HttpNotFoundException;
+use Slim\Exception\HttpSpecializedException;
+use Psr\Http\Message\ResponseFactoryInterface;
 
-class HttpNotFoundMiddleware implements MiddlewareInterface
+class HttpSpecializedErrorMiddleware implements MiddlewareInterface
 {
     public function __construct(
         private readonly ResponseFactoryInterface $responseFactory,
@@ -20,10 +20,12 @@ class HttpNotFoundMiddleware implements MiddlewareInterface
     {
         try {
             return $handler->handle($request);
-        } catch (HttpNotFoundException) {
-            $response = $this->responseFactory->createResponse(302);
+        } catch (HttpSpecializedException $h) {
+            $code = (string) $h->getCode();
+            $message = $h->getMessage();
 
-            return $response->withHeader('Location', '/404');
+            return $this->responseFactory->createResponse(302)
+                ->withHeader('Location', "/error?code=$code&message=$message");
         }
     }
 }
