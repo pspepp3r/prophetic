@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Slim\App;
 use DI\Container;
 use Slim\Views\Twig;
 use Doctrine\ORM\ORMSetup;
@@ -80,10 +81,19 @@ return [
 
     ResponseFactoryInterface::class => fn(App $app) => $app->getResponseFactory(),
 
-    Twig::class => function ($container, ConfigService $configService): Twig {
+    RequestValidatorFactoryInterface::class => fn(Container $container) => $container->get(
+        RequestValidatorFactory::class
+    ),
+
+    RouteParserInterface::class             => fn(App $app) => $app->getRouteCollector()->getRouteParser(),
+
+    SessionInterface::class => fn(Container $container) => $container->get(Session::class),
+
+    Twig::class => function (Container $container, ConfigService $configService): Twig {
 
         $twig = Twig::create(VIEW_PATH, ['cache' => STORAGE_PATH . '/cache/twig', 'auto_reload' => $configService->get('db.dev_mode')]);
 
+        $twig->addExtension(new IntlExtension());
         $twig->addExtension(new EntryFilesTwigExtension($container));
         $twig->addExtension(new AssetExtension($container->get('webpack_encore.packages')));
 
