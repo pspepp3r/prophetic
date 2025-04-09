@@ -5,8 +5,11 @@ declare(strict_types=1);
 use Slim\App;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
-use Src\Middlewares\HttpSpecializedErrorMiddleware;
 use Src\Services\ConfigService;
+use Src\Middlewares\StartSessionsMiddleware;
+use Src\Middlewares\ValidationErrorMiddleware;
+use Src\Middlewares\ValidationExceptionMiddleware;
+use Src\Middlewares\HttpSpecializedErrorMiddleware;
 
 return function (App $app) {
 
@@ -15,7 +18,10 @@ return function (App $app) {
 
     $app->addMiddleware(TwigMiddleware::create($app, $container
         ->get(Twig::class)));
+    $app->add(ValidationExceptionMiddleware::class);
+    $app->add(ValidationErrorMiddleware::class);
     $app->add(HttpSpecializedErrorMiddleware::class);
+    $app->add(StartSessionsMiddleware::class);
 
     $app->addErrorMiddleware(
         (bool) $config->get('error_handling.display_error_details'),
