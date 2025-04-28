@@ -23,10 +23,40 @@ class UserProvider
         $user->setName($data->name);
         $user->setEmail($data->email);
         $user->setPassword($this->hashService->hashPassword($data->password));
+        $user->setPicture('default.png');
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->sync($user);
 
         return $user;
+    }
+
+    public function verifyUser(User $user): void
+    {
+        $user->setVerifiedAt(new \DateTime());
+
+        $this->sync($user);
+    }
+
+    public function getById(int $userId): ?User
+    {
+        return $this->entityManager->find(User::class, $userId);
+    }
+
+    public function getByCredentials(array $credentials): ?User
+    {
+        return $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+    }
+
+    public function updatePassword(User $user, string $password): void
+    {
+        $user->setPassword($this->hashService->hashPassword($password));
+
+        $this->sync($user);
+    }
+
+    public function sync(User $user): void
+    {
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     }
 }

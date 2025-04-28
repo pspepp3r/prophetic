@@ -23,8 +23,10 @@ return [
 
         'app_name' => $_ENV['APP_NAME'],
         'app_version' => $_ENV['APP_VERSION'] ?? '1.0',
+        'app_key' => $_ENV['APP_KEY'],
         'app_environment' => $appEnv,
-        'app_debug' => $boolean($_ENV['APP_DEBUG'] ?? 0)
+        'app_debug' => $boolean($_ENV['APP_DEBUG'] ?? 0),
+        'app_url' => $_ENV['APP_BASE_URL']
 
     ],
 
@@ -64,6 +66,12 @@ return [
 
         'dsn' => $_ENV['MAILER_DSN'],
         'from' => $_ENV['MAILER_FROM'],
+
+    ],
+
+    'ipinfo' => [
+
+        'access_token' => $_ENV['IPINFO_TOKEN']
 
     ]
 

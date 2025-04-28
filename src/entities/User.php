@@ -5,15 +5,19 @@ declare(strict_types=1);
 namespace Src\Entities;
 
 use DateTime;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\Table;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\PreUpdate;
-use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\PreUpdate;
+use Doctrine\ORM\Mapping\Table;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Src\Enums\ColorScheme;
 
 #[Entity, Table('users')]
 #[HasLifecycleCallbacks]
@@ -34,11 +38,17 @@ class User
     #[Column(nullable: true)]
     private string $picture;
 
+    #[Column(nullable: true)]
+    private string $location = '';
+
     #[Column('two_factor',  options: ['default' => false])]
-    private bool $twoFactor;
+    private bool $twoFactor = false;
 
     #[Column('verified_at', nullable: true)]
-    private DateTime $verifiedAt;
+    private ?DateTime $verifiedAt;
+
+    #[OneToMany(Sessions::class, 'user', ['persist', 'remove'])]
+    private Collection $sessions;
 
     #[Column('joined_at')]
     private DateTime $joinedAt;
@@ -46,8 +56,9 @@ class User
     #[Column('updated_at')]
     private DateTime $updatedAt;
 
-    public function __construct() {
-        $this->twoFactor = false;
+    public function __construct()
+    {
+        $this->sessions = new ArrayCollection();
     }
 
     #[PrePersist, PreUpdate]
@@ -113,7 +124,19 @@ class User
         return $this;
     }
 
-    public function getTwoFactor(): bool
+    public function getLocation(): string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): static
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function hasTwoFactorAuthEnabled(): bool
     {
         return $this->twoFactor;
     }
@@ -125,7 +148,7 @@ class User
         return $this;
     }
 
-    public function getVerifiedAt(): DateTime
+    public function getVerifiedAt(): ?DateTime
     {
         return $this->verifiedAt;
     }

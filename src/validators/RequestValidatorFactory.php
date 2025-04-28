@@ -22,6 +22,6 @@ class RequestValidatorFactory implements RequestValidatorFactoryInterface
             return $validator;
         }
 
-        throw new \RuntimeException('Failed to instantiate the request validator class "' . $class . '"');
+        throw new \RuntimeException("Failed to instantiate the request validator class \"$class\"");
     }
 }

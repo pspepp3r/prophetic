@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Src\Mails;
 
-use Src\Entities\User;
+use Src\Entities\PasswordReset;
 use Src\Services\ConfigService;
 use Src\Services\SignedUrlService;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\BodyRendererInterface;
 
-class SignupEmail
+class ForgotPasswordEmail
 {
     public function __construct(
         private readonly ConfigService $config,
@@ -20,26 +20,22 @@ class SignupEmail
         private readonly SignedUrlService $signedUrl
     ) {}
 
-    public function send(User $user): void
+    public function send(PasswordReset $passwordReset): void
     {
-        $email          = $user->getEmail();
-        $expirationDate = new \DateTime('+30 minutes');
-        $activationLink = $this->signedUrl->fromRoute(
-            'verify',
-            ['id' => $user->getId(), 'hash' => sha1($email)],
-            $expirationDate
+        $email   = $passwordReset->getEmail();
+        $resetLink = $this->signedUrl->fromRoute(
+            'password-reset',
+            ['token' => $passwordReset->getToken()],
+            $passwordReset->getExpiration()
         );
-
         $message = (new TemplatedEmail())
             ->from($this->config->get('mailer.from'))
             ->to($email)
-            ->subject('Welcome to Blogginit')
-            ->htmlTemplate('emails/welcome.html.twig')
+            ->subject('Your Blogginit Password Reset Link')
+            ->htmlTemplate('emails/reset_password.html.twig')
             ->context(
                 [
-                    'user' => $user,
-                    'activationLink' => $activationLink,
-                    'expirationDate' => $expirationDate,
+                    'resetLink' => $resetLink,
                 ]
             );
 

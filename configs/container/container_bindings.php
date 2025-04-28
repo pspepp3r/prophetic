@@ -2,14 +2,19 @@
 
 declare(strict_types=1);
 
+use ipinfo\ipinfo\IPinfo;
 use Slim\App;
 use DI\Container;
+use Slim\Csrf\Guard;
 use Slim\Views\Twig;
 use Doctrine\ORM\ORMSetup;
 use Slim\Factory\AppFactory;
 use Doctrine\ORM\EntityManager;
+use Src\Classes\Csrf;
 use Src\Services\ConfigService;
 use Doctrine\DBAL\DriverManager;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Twig\Extra\Intl\IntlExtension;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Mailer\Mailer;
@@ -21,6 +26,7 @@ use Src\Classes\RouteEntityBindingStrategy;
 use Src\Validators\RequestValidatorFactory;
 use Symfony\Component\Mailer\MailerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Src\Classes\EntrypointLookupCollection as ClassesEntrypointLookupCollection;
 use Symfony\Bridge\Twig\Extension\AssetExtension;
 use Symfony\Component\Mime\BodyRendererInterface;
 use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
@@ -28,10 +34,7 @@ use Src\Contracts\RequestValidatorFactoryInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
-use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 return [
 
@@ -61,6 +64,12 @@ return [
 
     ConfigService::class => new ConfigService(require CONFIG_PATH . '/app.php'),
 
+    'csrf'                                  => fn(ResponseFactoryInterface $responseFactory, Csrf $csrf) => new Guard(
+        $responseFactory,
+        failureHandler: $csrf->failureHandler(),
+        persistentTokenMode: true
+    ),
+
     EntityManager::class => function ($connection, $ORMConfig, ConfigService $configService): EntityManager {
 
         $connection = DriverManager::getConnection($configService->get('db'));
@@ -69,6 +78,8 @@ return [
         $entityManager = new EntityManager($connection, $ORMConfig);
         return $entityManager;
     },
+
+    IPinfo::class => fn(ConfigService $config) => new IPinfo($config->get('ipinfo.access_token')),
 
     MailerInterface::class                  => function (ConfigService $config) {
         if ($config->get('mailer.driver') === 'log') {
@@ -89,11 +100,12 @@ return [
     RouteParserInterface::class             => fn(App $app) => $app->getRouteCollector()->getRouteParser(),
 
     SessionInterface::class => fn(ConfigService $config) => new Session(new NativeSessionStorage([
-        'cookie_lifetime' => 2592000,
-        'cookie_httponly' => $config->get('session.httponly'),
-        'cookie_secure' => $config->get('session.secure'),
-        'cookie_samesite' => $config->get('session.samesite')
-    ])),
+                'cookie_lifetime' => 2592000,
+                'cookie_httponly' => $config->get('session.httponly'),
+                'cookie_secure' => $config->get('session.secure'),
+                'cookie_samesite' => $config->get('session.samesite')
+            ])),
+
 
     Twig::class => function (Container $container, ConfigService $configService): Twig {
 
@@ -113,7 +125,7 @@ return [
     ),
 
     'webpack_encore.tag_renderer' => fn(Container $container) => new TagRenderer(
-        new EntrypointLookupCollection($container, 'webpack_encore.entrypoint'),
+        new ClassesEntrypointLookupCollection($container, 'webpack_encore.entrypoint'),
         $container->get('webpack_encore.packages')
     ),
 
