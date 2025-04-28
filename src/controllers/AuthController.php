@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Src\Controllers;
 
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
-use Src\Services\AuthService;
+use Src\Contracts\RequestValidatorFactoryInterface;
+use Src\Data_objects\RegisterUserData;
 use Src\Enums\AuthAttemptStatus;
 use Src\Errors\ValidationException;
-use Src\Data_objects\RegisterUserData;
+use Src\Services\AuthService;
 use Src\Services\ResponseFormatterService;
-use Src\Validators\UserLoginRequestValidator;
 use Src\Validators\TwoFactorLoginRequestValidator;
-use Psr\Http\Message\ResponseInterface as Response;
-use Src\Contracts\RequestValidatorFactoryInterface;
+use Src\Validators\UserLoginRequestValidator;
 use Src\Validators\UserRegistrationRequestValidator;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 class AuthController
 {

@@ -3,15 +3,15 @@
 declare(strict_types=1);
 
 use Slim\App;
+use Slim\Middleware\MethodOverrideMiddleware;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
-use Src\Services\ConfigService;
 use Src\Middlewares\CsrfFieldsMiddleware;
+use Src\Middlewares\HttpSpecializedErrorMiddleware;
 use Src\Middlewares\StartSessionsMiddleware;
-use Slim\Middleware\MethodOverrideMiddleware;
 use Src\Middlewares\ValidationErrorMiddleware;
 use Src\Middlewares\ValidationExceptionMiddleware;
-use Src\Middlewares\HttpSpecializedErrorMiddleware;
+use Src\Services\ConfigService;
 
 return function (App $app) {
 

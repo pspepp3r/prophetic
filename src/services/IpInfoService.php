@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Src\Services;
@@ -9,8 +10,7 @@ class IpInfoService
 {
     public function __construct(
         private readonly IPinfo $ipinfo
-    ) {
-    }
+    ) {}
 
     public function getLocation(string $ipAddress): string
     {

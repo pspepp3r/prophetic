@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Middlewares;
 
@@ -13,9 +13,7 @@ use Slim\Views\Twig;
 
 class CsrfFieldsMiddleware implements MiddlewareInterface
 {
-    public function __construct(private readonly Twig $twig, private readonly ContainerInterface $container)
-    {
-    }
+    public function __construct(private readonly Twig $twig, private readonly ContainerInterface $container) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

@@ -1,18 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Validators;
 
+use Psr\Container\ContainerInterface;
 use Src\Contracts\RequestValidatorFactoryInterface;
 use Src\Contracts\RequestValidatorInterface;
-use Psr\Container\ContainerInterface;
 
 class RequestValidatorFactory implements RequestValidatorFactoryInterface
 {
-    public function __construct(private readonly ContainerInterface $container)
-    {
-    }
+    public function __construct(private readonly ContainerInterface $container) {}
 
     public function make(string $class): RequestValidatorInterface
     {

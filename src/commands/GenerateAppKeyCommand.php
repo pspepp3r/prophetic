@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Commands;
 
@@ -12,7 +12,8 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class GenerateAppKeyCommand extends Command
 {
-    public function __construct(private readonly ConfigService $config) {
+    public function __construct(private readonly ConfigService $config)
+    {
         parent::__construct();
     }
     protected function configure(): void
@@ -63,4 +64,3 @@ class GenerateAppKeyCommand extends Command
         return Command::SUCCESS;
     }
 }
-

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Src\Providers;
 
 use DateTime;
-use Src\Entities\Sessions;
 use Doctrine\ORM\EntityManager;
+use Src\Entities\Sessions;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SessionProvider
@@ -46,7 +46,6 @@ class SessionProvider
         $session->setLastAction($dateTime);
 
         $this->sync($session);
-
     }
 
     public function sync(Sessions $session): void

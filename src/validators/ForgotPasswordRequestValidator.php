@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Validators;
 
-use Valitron\Validator;
-use Src\Errors\ValidationException;
 use Src\Contracts\RequestValidatorInterface;
+use Src\Errors\ValidationException;
+use Valitron\Validator;
 
 class ForgotPasswordRequestValidator implements RequestValidatorInterface
 {

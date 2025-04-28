@@ -40,7 +40,8 @@ class Sessions
         return $this->id;
     }
 
-    public function setId(string $id): static{
+    public function setId(string $id): static
+    {
         $this->id = $id;
 
         return $this;

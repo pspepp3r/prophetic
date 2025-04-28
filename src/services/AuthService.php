@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Src\Services;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Src\Entities\User;
-use Src\Mails\SignupEmail;
-use Src\Providers\UserProvider;
-use Src\Enums\AuthAttemptStatus;
 use Src\Data_objects\RegisterUserData;
+use Src\Entities\User;
+use Src\Enums\AuthAttemptStatus;
+use Src\Mails\SignupEmail;
 use Src\Mails\TwoFactorAuthEmail;
+use Src\Providers\UserProvider;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AuthService
@@ -94,7 +94,7 @@ class AuthService
 
         $user = $this->userProvider->getById($userId);
 
-        if (! $user ) {
+        if (! $user) {
             // || $user->getEmail() !== $data['email']
             return false;
         }

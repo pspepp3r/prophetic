@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Src\Providers;
 
-use Src\Entities\User;
-use Src\Services\HashService;
 use Doctrine\ORM\EntityManager;
 use Src\Data_objects\RegisterUserData;
+use Src\Entities\User;
+use Src\Services\HashService;
 
 class UserProvider
 {

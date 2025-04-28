@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Middlewares;
 
-use Src\Services\RequestService;
-use Src\Errors\ValidationException;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Src\Services\ResponseFormatterService;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use Src\Errors\ValidationException;
+use Src\Services\RequestService;
+use Src\Services\ResponseFormatterService;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ValidationExceptionMiddleware implements MiddlewareInterface
@@ -21,8 +21,7 @@ class ValidationExceptionMiddleware implements MiddlewareInterface
         private readonly SessionInterface $session,
         private readonly RequestService $requestService,
         private readonly ResponseFormatterService $responseFormatter
-    ) {
-    }
+    ) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

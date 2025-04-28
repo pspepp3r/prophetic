@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Src\Services;
 
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Src\Entities\PasswordReset;
 use Src\Entities\User;

@@ -3,9 +3,9 @@
 namespace Src\Classes;
 
 use Psr\Container\ContainerInterface;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
 use Symfony\WebpackEncoreBundle\Exception\UndefinedBuildException;
-use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface;
 
 /**
  * Aggregate the different entry points configured in the container.

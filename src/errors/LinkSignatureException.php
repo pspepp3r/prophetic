@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Src\Errors;
 
-use Throwable;
 use RuntimeException;
+use Throwable;
 
 class LinkSignatureException extends RuntimeException
 {

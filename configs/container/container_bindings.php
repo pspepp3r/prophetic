@@ -2,39 +2,39 @@
 
 declare(strict_types=1);
 
-use ipinfo\ipinfo\IPinfo;
-use Slim\App;
 use DI\Container;
-use Slim\Csrf\Guard;
-use Slim\Views\Twig;
-use Doctrine\ORM\ORMSetup;
-use Slim\Factory\AppFactory;
-use Doctrine\ORM\EntityManager;
-use Src\Classes\Csrf;
-use Src\Services\ConfigService;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
+use ipinfo\ipinfo\IPinfo;
+use Psr\Http\Message\ResponseFactoryInterface;
+use Slim\App;
+use Slim\Csrf\Guard;
+use Slim\Factory\AppFactory;
+use Slim\Interfaces\RouteParserInterface;
+use Slim\Views\Twig;
+use Src\Classes\Csrf;
+use Src\Classes\EntrypointLookupCollection as ClassesEntrypointLookupCollection;
+use Src\Classes\RouteEntityBindingStrategy;
+use Src\Contracts\RequestValidatorFactoryInterface;
+use Src\Services\ConfigService;
+use Src\Validators\RequestValidatorFactory;
+use Symfony\Bridge\Twig\Extension\AssetExtension;
+use Symfony\Bridge\Twig\Mime\BodyRenderer;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-use Twig\Extra\Intl\IntlExtension;
-use Symfony\Component\Asset\Package;
 use Symfony\Component\Mailer\Mailer;
-use Symfony\Component\Asset\Packages;
-use Symfony\Component\Mailer\Transport;
-use Slim\Interfaces\RouteParserInterface;
-use Symfony\Bridge\Twig\Mime\BodyRenderer;
-use Src\Classes\RouteEntityBindingStrategy;
-use Src\Validators\RequestValidatorFactory;
 use Symfony\Component\Mailer\MailerInterface;
-use Psr\Http\Message\ResponseFactoryInterface;
-use Src\Classes\EntrypointLookupCollection as ClassesEntrypointLookupCollection;
-use Symfony\Bridge\Twig\Extension\AssetExtension;
+use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\BodyRendererInterface;
-use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
-use Src\Contracts\RequestValidatorFactoryInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
+use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
-use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
+use Twig\Extra\Intl\IntlExtension;
 
 return [
 
@@ -100,11 +100,11 @@ return [
     RouteParserInterface::class             => fn(App $app) => $app->getRouteCollector()->getRouteParser(),
 
     SessionInterface::class => fn(ConfigService $config) => new Session(new NativeSessionStorage([
-                'cookie_lifetime' => 2592000,
-                'cookie_httponly' => $config->get('session.httponly'),
-                'cookie_secure' => $config->get('session.secure'),
-                'cookie_samesite' => $config->get('session.samesite')
-            ])),
+        'cookie_lifetime' => 2592000,
+        'cookie_httponly' => $config->get('session.httponly'),
+        'cookie_secure' => $config->get('session.secure'),
+        'cookie_samesite' => $config->get('session.samesite')
+    ])),
 
 
     Twig::class => function (Container $container, ConfigService $configService): Twig {

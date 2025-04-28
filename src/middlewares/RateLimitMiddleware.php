@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Middlewares;
 
@@ -19,8 +19,7 @@ class RateLimitMiddleware implements MiddlewareInterface
         private readonly RequestService $requestService,
         private readonly ConfigService $config,
         // private readonly RateLimiterFactory $rateLimiterFactory
-    ) {
-    }
+    ) {}
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

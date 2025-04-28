@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Src\Validators;
 
-use Src\Entities\User;
-use Valitron\Validator;
 use Doctrine\ORM\EntityManager;
-use Src\Errors\ValidationException;
 use Src\Contracts\RequestValidatorInterface;
+use Src\Entities\User;
+use Src\Errors\ValidationException;
+use Valitron\Validator;
 
 class UserRegistrationRequestValidator implements RequestValidatorInterface
 {

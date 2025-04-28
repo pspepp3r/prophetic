@@ -17,7 +17,6 @@ use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use Src\Enums\ColorScheme;
 
 #[Entity, Table('users')]
 #[HasLifecycleCallbacks]

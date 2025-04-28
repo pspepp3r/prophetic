@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Mails;
 
-use Src\Services\ConfigService;
 use Src\Entities\UserLoginCode;
+use Src\Services\ConfigService;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\BodyRendererInterface;
@@ -16,8 +16,7 @@ class TwoFactorAuthEmail
         private readonly ConfigService $config,
         private readonly MailerInterface $mailer,
         private readonly BodyRendererInterface $renderer
-    ) {
-    }
+    ) {}
 
     public function send(UserLoginCode $userLoginCode): void
     {

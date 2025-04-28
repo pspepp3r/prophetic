@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Entities\Traits;
 
 use DateTime;
 use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 trait HasTimestamps

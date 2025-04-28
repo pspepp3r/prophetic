@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Src\Middlewares;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Src\Services\ConfigService;
 use Src\Services\RequestService;
 use Src\Services\SessionService;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class StartSessionsMiddleware implements MiddlewareInterface

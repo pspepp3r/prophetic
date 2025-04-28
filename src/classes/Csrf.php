@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Src\Classes;
 
@@ -11,9 +11,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class Csrf
 {
-    public function __construct(private readonly ResponseFactoryInterface $responseFactory)
-    {
-    }
+    public function __construct(private readonly ResponseFactoryInterface $responseFactory) {}
 
     public function failureHandler(): Closure
     {
