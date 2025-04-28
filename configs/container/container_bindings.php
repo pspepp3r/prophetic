@@ -31,6 +31,7 @@ use Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollection;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 return [
 
@@ -87,7 +88,12 @@ return [
 
     RouteParserInterface::class             => fn(App $app) => $app->getRouteCollector()->getRouteParser(),
 
-    SessionInterface::class => fn(Container $container) => $container->get(Session::class),
+    SessionInterface::class => fn(ConfigService $config) => new Session(new NativeSessionStorage([
+        'cookie_lifetime' => 2592000,
+        'cookie_httponly' => $config->get('session.httponly'),
+        'cookie_secure' => $config->get('session.secure'),
+        'cookie_samesite' => $config->get('session.samesite')
+    ])),
 
     Twig::class => function (Container $container, ConfigService $configService): Twig {
 
